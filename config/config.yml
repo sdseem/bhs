@@ -1,17 +1,14 @@
 app:
-  name: 'go-clean-template'
+  name: 'bhs'
   version: '1.0.0'
+  secret: 'test_secret'
 
 http:
   port: '8080'
 
 logger:
   log_level: 'debug'
-  rollbar_env: 'go-clean-template'
+  rollbar_env: 'bhs'
 
 postgres:
   pool_max: 2
-
-rabbitmq:
-  rpc_server_exchange: 'rpc_server'
-  rpc_client_exchange: 'rpc_client'

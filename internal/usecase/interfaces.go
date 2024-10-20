@@ -4,26 +4,37 @@ package usecase
 import (
 	"context"
 
-	"github.com/evrone/go-clean-template/internal/entity"
+	"bhs/internal/entity"
 )
 
 //go:generate mockgen -source=interfaces.go -destination=./mocks_test.go -package=usecase_test
 
 type (
-	// Translation -.
-	Translation interface {
-		Translate(context.Context, entity.Translation) (entity.Translation, error)
-		History(context.Context) ([]entity.Translation, error)
+	// Auth -.
+	Auth interface {
+		Register(context.Context, entity.User) (string, error)
+		Authenticate(context.Context, string, string) (string, error)
+		HashPassword(string) (string, error)
+		Logout(context.Context, string)
+		Authorize(context.Context, string) (entity.User, error)
+	}
+	// UserRepo -.
+	UserRepo interface {
+		SaveUser(context.Context, entity.User) (*entity.User, error)
+		GetUserById(context.Context, int64) (*entity.User, error)
+		GetUser(context.Context, string) (*entity.User, error)
 	}
 
-	// TranslationRepo -.
-	TranslationRepo interface {
-		Store(context.Context, entity.Translation) error
-		GetHistory(context.Context) ([]entity.Translation, error)
+	AssetRepo interface {
+		GetUserAssetsPage(ctx context.Context, user entity.User, pageNumber uint64, itemsPerPage uint64) ([]entity.Asset, error)
+		GetAssetsPage(ctx context.Context, pageNumber uint64, itemsPerPage uint64) ([]entity.Asset, error)
+		AddUserAsset(context.Context, entity.User, int64) (bool, error)
 	}
 
-	// TranslationWebAPI -.
-	TranslationWebAPI interface {
-		Translate(entity.Translation) (entity.Translation, error)
+	Assets interface {
+		GetAssetsPage(ctx context.Context, pageNumber uint64, itemsPerPage uint64) ([]entity.Asset, error)
+		GetUserAssets(context.Context, entity.User) ([]entity.Asset, error)
+		GetUserAssetsPage(ctx context.Context, user entity.User, pageNumber uint64, itemsPerPage uint64) ([]entity.Asset, error)
+		AddUserAsset(context.Context, entity.User, int64) (bool, error)
 	}
 )

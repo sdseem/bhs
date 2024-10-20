@@ -1,0 +1,7 @@
+curl -X POST -H "Content-Type: application/json" -d '{"username": "user", "password": "password"}' http://localhost:8080/v1/auth/registration
+curl -X POST -H "Content-Type: application/json" -d '{"username": "user", "password": "password"}' http://localhost:8080/v1/auth/auth
+
+
+curl -G -d "asset_id=3" -H "Authorization: Bearer <token>" http://localhost:8080/v1/assets/buy
+curl -G -d "page=1" -d "per_page=3" -H "Authorization: Bearer <token>" http://localhost:8080/v1/assets/lib
+curl -G -d "page=1" -d "per_page=3" http://localhost:8080/v1/assets
